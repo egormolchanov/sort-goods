@@ -24,15 +24,28 @@ button {
     cursor: pointer;
 }
 
-ul {
-    padding: 0;
+nav {
+    display: flex;
+    justify-content: center;
 }
 
+/*******************************************************/
+/*search START*/
+
+#search {
+    border: none;
+    outline: none;
+    width: 120px;
+    padding: 5px;
+    border-right: 1px solid #677d81;
+
+}
+
+/*search END*/
 /******************************************************/
 /*drop down list START*/
 
 .drop-down-list {
-    margin: 20px auto;
     position: relative;
     width: 120px;
     cursor: pointer;
@@ -61,6 +74,10 @@ ul {
     left: 0; right: 0; top: 10px;
 }
 
+.drop-down-list__options ul {
+    padding: 0;
+}
+
 .drop-down-list__option {
     list-style-type: none;
     border-top: 1px solid #677d81;
@@ -86,10 +103,6 @@ ul {
     background-size: cover;
     height: 15px;
     width: 15px;
-}
-
-.hide {
-    display: none;
 }
 
 /*drop down list END*/
@@ -127,3 +140,45 @@ ul {
 }
 
 /*sorting goods END*/
+
+#noResults {
+    text-align: center;
+    color: red;
+}
+
+.hide {
+    display: none; 
+}
+
+/**************************/
+/* info block style START */
+
+.info-block {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px auto;
+    width: 100%;
+    min-width: 270px;
+    max-width: 400px;
+    background: wheat;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Signika', sans-serif;
+}
+
+.info-block h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.info-block ol {
+    padding-left: 1.25rem;
+}
+
+.info-block li {
+    line-height: 1.5;
+}
+
+/*info blok style   END*/

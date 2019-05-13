@@ -54,44 +54,77 @@ const dropDownList = document.querySelector('.drop-down-list'),
       dropSownListOption = document.querySelectorAll('.drop-down-list__option'),
       showcaseGoods = document.querySelector('.showcase-goods');
 
-const addGoods = () => {
-    showcaseGoods.innerHTML = '';
-    listGoods.forEach(el => {
-        showcaseGoods.innerHTML += 
-            `<div class="goods">
-                <img src="${el.img}" alt="">
-                <h3 class="goods-text">${el.name}</h3>
-                <p class="goods-text">${el.cost} USD</p>
-            </div>`
-    })
-}
-
-addGoods();
-
-//drop down list
-const dropDown = () => {
-    const dropDownListOptions = document.querySelector('.drop-down-list__options'),
-        arrowButton = document.querySelector('.arrow-button');
-    dropDownListOptions.classList.toggle('hide');
-    arrowButton.classList.toggle('arrow-bottom');
-    arrowButton.classList.toggle('arrow-top');
-}
-
-//sorting goods
-const sortGoods = event => {
-    listGoods.sort((a, b) => {
-        switch (event.target.innerHTML) {
-            case 'Price (high-low)':
-                return b.cost - a.cost;
-            case 'Price (low-high)':
-                return a.cost - b.cost;
-            case 'Top Rated':
-                return b.rated - a.rated;
-        }
-    });
+      const addGoods = () => {
+        showcaseGoods.innerHTML = '';
+        listGoods.forEach(el => {
+            showcaseGoods.innerHTML += 
+                `<div class="goods">
+                    <img src="${el.img}" alt="">
+                    <h3 class="goods-text">${el.name}</h3>
+                    <p class="goods-text">${el.cost} USD</p>
+                </div>`
+        })
+    
+        noResults.classList.add('hide');
+    }
     
     addGoods();
-}
-
-dropDownList.addEventListener('click', dropDown);
-dropSownListOption.forEach( el => el.addEventListener('click', sortGoods));
+    
+    //drop down list
+    const dropDown = () => {
+        const dropDownListOptions = document.querySelector('.drop-down-list__options'),
+            arrowButton = document.querySelector('.arrow-button');
+        dropDownListOptions.classList.toggle('hide');
+        arrowButton.classList.toggle('arrow-bottom');
+        arrowButton.classList.toggle('arrow-top');
+    }
+    
+    //sorting goods
+    const sortGoods = event => {
+        listGoods.sort((a, b) => {
+            switch (event.target.innerHTML) {
+                case 'Price (high-low)':
+                    return b.cost - a.cost;
+                case 'Price (low-high)':
+                    return a.cost - b.cost;
+                case 'Top Rated':
+                    return b.rated - a.rated;
+            }
+        });
+        
+        addGoods();
+    }
+    
+    dropDownList.addEventListener('click', dropDown);
+    dropSownListOption.forEach( el => el.addEventListener('click', sortGoods));
+    
+    //search
+    search.oninput = () => {
+        const value = search.value.trim().toLowerCase(),
+              headlineGoods = document.querySelectorAll('.goods h3');
+    
+        switch (value) {
+            case '':
+                headlineGoods.forEach(el => {
+                    el.parentNode.classList.remove('hide');
+                });
+                break;
+            default: 
+                headlineGoods.forEach(el => {
+                    el.innerText.toLowerCase().search(value) == -1 ?  el.parentNode.classList.add('hide') : el.parentNode.classList.remove('hide');
+                });
+                break;
+        }
+    
+        //check if search results are left
+        const resultСheck = Array.from(document.querySelectorAll('.goods')).every(el =>  el.classList.contains('hide'));
+    
+        if (resultСheck) {
+            if (noResults.classList.contains('hide')) {
+                noResults.classList.remove('hide');
+            } 
+        } else if (!noResults.classList.contains('hide')) {
+            noResults.classList.add('hide');
+        }
+    }
+    
