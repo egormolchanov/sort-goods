@@ -7,3 +7,5 @@
  Price (low-high),
  Top Rated
 4. Adaptive layout.
+
+https://egormolchanov.github.io/sort-goods/
